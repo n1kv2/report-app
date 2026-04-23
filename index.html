@@ -154,14 +154,15 @@
     0%,100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.5; transform: scale(0.7); }
   }
-  .hero h1 {
-    font-family: var(--font-head);
-    font-size: clamp(2.4rem, 8vw, 3.6rem);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -.02em;
-    margin-bottom: 1.25rem;
-  }
+.hero h1 {
+  font-family: var(--font-head);
+ 
+  font-size: clamp(1.00rem, 8vw, 3.6rem); 
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  margin-bottom: 1.25rem;
+}
   .hero h1 span { color: var(--accent); }
   .hero-sub {
     font-size: 16px;
@@ -170,12 +171,20 @@
     margin-bottom: 2rem;
     line-height: 1.7;
   }
+.hero-stats {
+  display: grid;
+  /* Modificato da repeat(3, 1fr) a 1fr per impilare i box su mobile */
+  grid-template-columns: 1fr; 
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+/* Aggiungi questo blocco per far tornare i 3 box affiancati su tablet/desktop */
+@media (min-width: 600px) {
   .hero-stats {
-    display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 1rem;
   }
+}
   .hero-stat {
     background: var(--bg3);
     border: 1px solid var(--border);
@@ -717,7 +726,7 @@
 <div class="scroll-progress" id="scrollProgress"></div>
 
 <nav>
-  <span class="nav-brand">IRL Report</span>
+  <span class="nav-brand">Report App</span>
   <div class="nav-links">
     <a href="#mercato">Mercato</a>
     <a href="#opportunita">Opportunità</a>
@@ -734,7 +743,7 @@
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-tag">Analisi di mercato 2025</div>
-  <h1>Mercato della<br><span>disconnessione</span><br>dai social</h1>
+  <h1>Analisi di<br>mercato<br><span>Offline</span><br>dai social</h1>
   <p class="hero-sub">Report strategico completo per un'app ibrida IRL. Mercato, opportunità, strategie di lancio, monetizzazione e glossario dei termini.</p>
   <div class="hero-stats">
     <div class="hero-stat">
@@ -1224,8 +1233,8 @@
 </section>
 
 <footer>
-  Report generato con Claude · Analisi mercato 2025<br>
-  App IRL & Disconnessione Social — uso personale e riservato
+  Nicholas Vigo<br>
+  App e Disconnessione Social — Copyright © 2026<br>
 </footer>
 
 </main>
