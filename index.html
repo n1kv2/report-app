@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report — App IRL & Disconnessione Social</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --bg4: #222222;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #f0ede8;
+    --text2: #9a9590;
+    --text3: #5a5550;
+    --accent: #c8f060;
+    --accent2: #8be0c0;
+    --accent3: #f0a060;
+    --accent4: #f06060;
+    --blue: #60a8f0;
+    --purple: #a880f0;
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 1.25rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .nav-brand {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-right: auto;
+    white-space: nowrap;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text2);
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: all .2s;
+    font-family: var(--font-head);
+    letter-spacing: .04em;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--accent);
+    background: rgba(200,240,96,0.08);
+  }
+
+  /* MAIN */
+  main { padding-top: 56px; }
+
+  /* SECTIONS */
+  section {
+    padding: 3rem 1.25rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: calc(100vh - 56px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(200,240,96,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -50px; left: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(139,224,192,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
+    border: 1px solid rgba(200,240,96,0.3);
+    padding: 5px 12px;
+    border-radius: 99px;
+    font-family: var(--font-head);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    width: fit-content;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+  .hero h1 {
+    font-family: var(--font-head);
+    font-size: clamp(2.4rem, 8vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text2);
+    max-width: 480px;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 1rem;
+  }
+  .hero-stat {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: .875rem;
+  }
+  .hero-stat-val {
+    font-family: var(--font-head);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hero-stat-label {
+    font-size: 11px;
+    color: var(--text3);
+    line-height: 1.3;
+  }
+
+  /* SECTION HEADER */
+  .sec-head {
+    margin-bottom: 1.75rem;
+  }
+  .sec-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text3);
+    font-family: var(--font-head);
+    margin-bottom: .5rem;
+  }
+  .sec-title {
+    font-family: var(--font-head);
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+  }
+  .sec-title span { color: var(--accent); }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 1.25rem;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-bottom: 12px;
+    transition: border-color .2s;
+  }
+  .card:hover { border-color: var(--border2); }
+
+  /* MARKET METRICS */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+  .metric-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem;
+  }
+  .metric-val {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .metric-label {
+    font-size: 12px;
+    color: var(--text2);
+    margin-bottom: 2px;
+  }
+  .metric-sub {
+    font-size: 11px;
+    color: var(--text3);
+  }
+  .metric-up { color: var(--accent2); }
+
+  /* CHART BAR */
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .bar-label {
+    font-size: 12px;
+    color: var(--text2);
+    width: 120px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .bar-track {
+    flex: 1;
+    height: 22px;
+    background: var(--bg4);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: var(--font-head);
+    transition: width 1s cubic-bezier(.4,0,.2,1);
+    width: 0;
+  }
+  .bar-fill.animated { width: var(--target-width); }
+
+  /* OPPORTUNITY CARDS */
+  .opp-score {
+    height: 3px;
+    background: var(--bg4);
+    border-radius: 2px;
+    margin-top: 10px;
+    overflow: hidden;
+  }
+  .opp-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1.2s cubic-bezier(.4,0,.2,1);
+    width: 0;
+  }
+  .opp-fill.animated { width: var(--target-width); }
+
+  /* PHASE TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 9px; top: 8px; bottom: 8px;
+    width: 1px;
+    background: var(--border);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  .tl-dot {
+    position: absolute;
+    left: -23px;
+    top: 4px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+  }
+  .tl-phase {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-family: var(--font-head);
+    margin-bottom: 4px;
+  }
+  .tl-title {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .tl-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .tl-items li {
+    font-size: 13px;
+    color: var(--text2);
+    padding-left: 14px;
+    position: relative;
+  }
+  .tl-items li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--text3);
+    font-size: 11px;
+  }
+
+  /* KNOT CARDS */
+  .knot {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+  .knot-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-head);
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .knot-title {
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .knot-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+
+  /* MONO GRID */
+  .mono-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .mono-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .mono-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .mono-name {
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .mono-desc {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .mono-bar { height: 3px; background: var(--bg4); border-radius: 2px; overflow: hidden; }
+  .mono-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s cubic-bezier(.4,0,.2,1);
+    width: 0;
+  }
+  .mono-bar-fill.animated { width: var(--target-width); }
+
+  /* PILL */
+  .pill {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: var(--font-head);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 99px;
+    margin-bottom: 8px;
+  }
+
+  /* GLOSSARY */
+  .glo-search {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 11px 14px;
+    font-size: 14px;
+    color: var(--text);
+    font-family: var(--font-body);
+    margin-bottom: 1rem;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .glo-search:focus { border-color: var(--border2); }
+  .glo-search::placeholder { color: var(--text3); }
+  .cat-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .cat-btn {
+    font-size: 11px;
+    font-weight: 600;
+    font-family: var(--font-head);
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .cat-btn:hover { border-color: var(--border2); color: var(--text); }
+  .cat-btn.on { background: var(--accent); color: #0a0a0a; border-color: var(--accent); }
+  .glo-count { font-size: 12px; color: var(--text3); margin-bottom: 1rem; font-family: var(--font-head); }
+  .term-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: border-color .2s;
+  }
+  .term-card:hover { border-color: var(--border2); }
+  .term-card.open { border-color: rgba(200,240,96,0.3); }
+  .term-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: space-between;
+  }
+  .term-en {
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 600;
+    flex: 1;
+  }
+  .term-arrow {
+    color: var(--text3);
+    font-size: 14px;
+    transition: transform .2s;
+    flex-shrink: 0;
+  }
+  .term-card.open .term-arrow { transform: rotate(180deg); color: var(--accent); }
+  .term-it {
+    font-size: 12px;
+    color: var(--text3);
+    margin-top: 3px;
+  }
+  .term-body {
+    display: none;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .term-card.open .term-body { display: block; }
+  .term-def {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .term-ex {
+    font-size: 12px;
+    color: var(--text3);
+    line-height: 1.5;
+    font-style: italic;
+    background: var(--bg3);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    border-left: 2px solid var(--accent);
+  }
+
+  /* COMPETITOR TABLE */
+  .comp-table { width: 100%; overflow-x: auto; }
+  .comp-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    min-width: 480px;
+  }
+  .comp-table th {
+    font-family: var(--font-head);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text3);
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .comp-table td {
+    padding: 10px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    vertical-align: top;
+  }
+  .comp-table td:first-child { font-weight: 600; color: var(--text); font-family: var(--font-head); }
+  .comp-table tr:last-child td { border-bottom: none; }
+
+  /* KPI GRID */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .kpi-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .kpi-val {
+    font-family: var(--font-head);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--accent2);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .kpi-label {
+    font-size: 12px;
+    color: var(--text2);
+    margin-bottom: 2px;
+  }
+  .kpi-sub { font-size: 11px; color: var(--text3); }
+
+  /* RISK */
+  .risk-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .risk-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .risk-title {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .risk-fix { font-size: 12px; color: var(--text2); line-height: 1.5; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem 1.25rem 3rem;
+    font-size: 11px;
+    color: var(--text3);
+    font-family: var(--font-head);
+    letter-spacing: .05em;
+    border-top: 1px solid var(--border);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-progress {
+    position: fixed;
+    top: 56px; left: 0;
+    height: 2px;
+    background: var(--accent);
+    z-index: 101;
+    transition: width .1s linear;
+    width: 0;
+  }
+
+  /* FADE IN */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* EMPTY STATE */
+  .glo-empty {
+    font-size: 13px;
+    color: var(--text3);
+    text-align: center;
+    padding: 2rem 0;
+    display: none;
+  }
+
+  /* BACK TO TOP */
+  .btt {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.25rem;
+    width: 40px; height: 40px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--text2);
+    transition: all .2s;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 99;
+  }
+  .btt.visible { opacity: 1; pointer-events: auto; }
+  .btt:hover { background: var(--bg4); color: var(--accent); border-color: rgba(200,240,96,0.3); }
+
+  @media (min-width: 540px) {
+    .mono-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<nav>
+  <span class="nav-brand">IRL Report</span>
+  <div class="nav-links">
+    <a href="#mercato">Mercato</a>
+    <a href="#opportunita">Opportunità</a>
+    <a href="#strategia">Strategia</a>
+    <a href="#competitor">Competitor</a>
+    <a href="#monetizzazione">Revenue</a>
+    <a href="#kpi">KPI</a>
+    <a href="#glossario">Glossario</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-tag">Analisi di mercato 2025</div>
+  <h1>Mercato della<br><span>disconnessione</span><br>dai social</h1>
+  <p class="hero-sub">Report strategico completo per un'app ibrida IRL. Mercato, opportunità, strategie di lancio, monetizzazione e glossario dei termini.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-val">$72B</div>
+      <div class="hero-stat-label">Mercato digital wellness 2025</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">58%</div>
+      <div class="hero-stat-label">Gen Z che limita i social attivamente</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">+18%</div>
+      <div class="hero-stat-label">CAGR previsto fino al 2028</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MERCATO -->
+<section id="mercato">
+  <div class="sec-head fade-in">
+    <div class="sec-tag">01 — Panoramica</div>
+    <h2 class="sec-title">Il mercato<br><span>in numeri</span></h2>
+  </div>
+
+  <div class="metrics-grid fade-in">
+    <div class="metric-card">
+      <div class="metric-val">$72B</div>
+      <div class="metric-label">Digital wellness globale</div>
+      <div class="metric-sub metric-up">+18% CAGR fino al 2028</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">$9B</div>
+      <div class="metric-label">Social IRL / eventi 2024</div>
+      <div class="metric-sub metric-up">→ $32B stimati nel 2028</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">340+</div>
+      <div class="metric-label">App IRL lanciate 2022–2024</div>
+      <div class="metric-sub">+210% vs triennio precedente</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">$1.4B</div>
+      <div class="metric-label">Investimenti VC nel settore</div>
+      <div class="metric-sub">2023–2024, +67% YoY</div>
+    </div>
+  </div>
+
+  <div class="card fade-in">
+    <div style="font-family:var(--font-head);font-size:13px;font-weight:600;margin-bottom:1rem;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;">Perché le persone si disconnettono</div>
+    <div class="bar-row">
+      <span class="bar-label">Ansia / stress</span>
+      <div class="bar-track"><div class="bar-fill" style="--target-width:82%;background:var(--accent);">82%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Confronto sociale</span>
+      <div class="bar-track"><div class="bar-fill" style="--target-width:74%;background:var(--accent);">74%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Perdita di tempo</span>
+      <div class="bar-track"><div class="bar-fill" style="--target-width:71%;background:var(--accent);">71%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Isolamento reale</span>
+      <div class="bar-track"><div class="bar-fill" style="--target-width:63%;background:var(--accent2);">63%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">FOMO invertita</span>
+      <div class="bar-track"><div class="bar-fill" style="--target-width:49%;background:var(--accent2);">49%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Pressione genitori</span>
+      <div class="bar-track"><div class="bar-fill" style="--target-width:38%;background:var(--text3);">38%</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- OPPORTUNITÀ -->
+<section id="opportunita">
+  <div class="sec-head fade-in">
+    <div class="sec-tag">02 — Opportunità</div>
+    <h2 class="sec-title">Dove c'è<br><span>spazio reale</span></h2>
+  </div>
+
+  <div class="fade-in">
+
+    <div class="card">
+      <span class="pill" style="background:rgba(200,240,96,.12);color:var(--accent);">Alto potenziale</span>
+      <div style="font-family:var(--font-head);font-size:16px;font-weight:700;margin-bottom:6px;">App eventi iperlocali</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Aggregazione di attività fisiche near me — sport, aperitivi, escursioni. Modello ticketing + commissione organizzatori. Il mercato c'è, la domanda c'è, la concorrenza è debole.</div>
+      <div class="opp-score"><div class="opp-fill" style="--target-width:88%;background:var(--accent);"></div></div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:var(--font-head);">Opportunità: 88 / 100</div>
+    </div>
+
+    <div class="card">
+      <span class="pill" style="background:rgba(200,240,96,.12);color:var(--accent);">Alto potenziale</span>
+      <div style="font-family:var(--font-head);font-size:16px;font-weight:700;margin-bottom:6px;">Accountability offline</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Gruppi di sfide per uscire, limitare lo schermo, fare attività. Funziona con streak, check-in fisici, peer pressure positiva. Crea retention naturale tra utenti.</div>
+      <div class="opp-score"><div class="opp-fill" style="--target-width:80%;background:var(--accent);"></div></div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:var(--font-head);">Opportunità: 80 / 100</div>
+    </div>
+
+    <div class="card">
+      <span class="pill" style="background:rgba(139,224,192,.12);color:var(--accent2);">Buono</span>
+      <div style="font-family:var(--font-head);font-size:16px;font-weight:700;margin-bottom:6px;">Social detox assistito</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">App che guida la riduzione graduale dei social con sostituti IRL, journaling, e proposte di attività personalizzate. Differenziante ma richiede più complessità.</div>
+      <div class="opp-score"><div class="opp-fill" style="--target-width:72%;background:var(--accent2);"></div></div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:var(--font-head);">Opportunità: 72 / 100</div>
+    </div>
+
+    <div class="card">
+      <span class="pill" style="background:rgba(240,160,96,.12);color:var(--accent3);">Competitivo</span>
+      <div style="font-family:var(--font-head);font-size:16px;font-weight:700;margin-bottom:6px;">Matching per interessi reali</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Trova persone con cui fare cose specifiche — climbing, mostre, boardgame. Non dating. Modello Bumble BFF evoluto. Mercato già affollato ma con esecuzione mediocre.</div>
+      <div class="opp-score"><div class="opp-fill" style="--target-width:62%;background:var(--accent3);"></div></div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:var(--font-head);">Opportunità: 62 / 100</div>
+    </div>
+
+    <div class="card">
+      <span class="pill" style="background:rgba(96,168,240,.12);color:var(--blue);">Innovativo</span>
+      <div style="font-family:var(--font-head);font-size:16px;font-weight:700;margin-bottom:6px;">Screen time → reward IRL</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Meno tempo sullo schermo = punti spendibili per esperienze fisiche — sconti, accessi, premi. Differenziante unico, ma richiede partnership con brand fisici.</div>
+      <div class="opp-score"><div class="opp-fill" style="--target-width:68%;background:var(--blue);"></div></div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;font-family:var(--font-head);">Opportunità: 68 / 100</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STRATEGIA -->
+<section id="strategia">
+  <div class="sec-head fade-in">
+    <div class="sec-tag">03 — Go-to-Market</div>
+    <h2 class="sec-title">Roadmap<br><span>lancio città</span></h2>
+  </div>
+
+  <div class="fade-in">
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--accent);"></div>
+        <div class="tl-phase" style="color:var(--accent);">Fase 1 — Mesi 0–3</div>
+        <div class="tl-title">Seed community</div>
+        <ul class="tl-items">
+          <li>Recluta 50–100 founding users a mano — università, palestre, co-working</li>
+          <li>Crea 3–5 eventi pilota curati direttamente dal team</li>
+          <li>Raccogli feedback qualitativi pesanti su ogni touchpoint</li>
+          <li>Nessun growth hacking: qualità prima di quantità</li>
+          <li>Nessun lancio pubblico finché non c'è massa critica</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--accent2);"></div>
+        <div class="tl-phase" style="color:var(--accent2);">Fase 2 — Mesi 3–8</div>
+        <div class="tl-title">Densità locale</div>
+        <ul class="tl-items">
+          <li>Raggiungi 500–1.000 utenti attivi settimanali in città</li>
+          <li>Introduce i primi organizzatori esterni con commissione 10–15%</li>
+          <li>Testa 1 modello di revenue (commissioni o premium)</li>
+          <li>Attiva loop di referral: porta un amico, evento gratis</li>
+          <li>Misura NPS post-evento e retention a 30 giorni</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--purple);"></div>
+        <div class="tl-phase" style="color:var(--purple);">Fase 3 — Mesi 8–18</div>
+        <div class="tl-title">Replica e scala</div>
+        <ul class="tl-items">
+          <li>Esporta il playbook in 2–3 città italiane simili</li>
+          <li>Assumi un city manager locale per ogni nuova città</li>
+          <li>Introduce abbonamento premium per utenti frequenti</li>
+          <li>Avvia conversazioni con VC / seed round</li>
+          <li>Esplora partnership con brand fisici per eventi sponsorizzati</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="margin-top:1.75rem;" class="fade-in">
+    <div style="font-family:var(--font-head);font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1rem;">Nodi cruciali da risolvere (in ordine)</div>
+
+    <div class="knot">
+      <div class="knot-num" style="background:rgba(240,96,96,.15);color:var(--accent4);">1</div>
+      <div>
+        <div class="knot-title">Cold start problem</div>
+        <div class="knot-desc">Un'app di eventi è inutile senza eventi e utenti. Risolvi con eventi "fake it till you make it": il team organizza i primi, poi apre agli organizzatori esterni solo quando c'è massa critica.</div>
+      </div>
+    </div>
+    <div class="knot">
+      <div class="knot-num" style="background:rgba(240,96,96,.15);color:var(--accent4);">2</div>
+      <div>
+        <div class="knot-title">Retention a 30 giorni</div>
+        <div class="knot-desc">Le app sociali muoiono se gli utenti non tornano. Il vero habit loop non è l'app: è l'abitudine di uscire. Progetta notifiche che anticipano l'evento, non che richiamano all'app.</div>
+      </div>
+    </div>
+    <div class="knot">
+      <div class="knot-num" style="background:rgba(240,160,96,.15);color:var(--accent3);">3</div>
+      <div>
+        <div class="knot-title">Monetizzazione coerente con la missione</div>
+        <div class="knot-desc">La pubblicità tradizionale distrugge la narrativa "anti-social". Il modello deve essere coerente: commissioni, abbonamenti, o brand partnership con esperienze fisiche — non banner.</div>
+      </div>
+    </div>
+    <div class="knot">
+      <div class="knot-num" style="background:rgba(240,160,96,.15);color:var(--accent3);">4</div>
+      <div>
+        <div class="knot-title">Sicurezza e trust</div>
+        <div class="knot-desc">Incontrare persone nuove IRL richiede fiducia. Serve verifica identità leggera, sistema di rating bidirezionale, e regole chiare per gli organizzatori. Trascurarlo = crisi reputazionale.</div>
+      </div>
+    </div>
+    <div class="knot">
+      <div class="knot-num" style="background:rgba(200,240,96,.15);color:var(--accent);">5</div>
+      <div>
+        <div class="knot-title">Posizionamento narrativo</div>
+        <div class="knot-desc">Non sei "un'altra app di eventi". Sei l'alternativa ai social. Questa narrativa è il tuo moat: comunicala con forza sin dal giorno 0, altrimenti vieni percepito come clone di Meetup.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPETITOR -->
+<section id="competitor">
+  <div class="sec-head fade-in">
+    <div class="sec-tag">04 — Analisi competitiva</div>
+    <h2 class="sec-title">Come<br><span>batterli</span></h2>
+  </div>
+
+  <div class="card fade-in comp-table">
+    <table>
+      <thead>
+        <tr>
+          <th>App</th>
+          <th>Focus</th>
+          <th>Utenti</th>
+          <th>Gap / debolezza</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Meetup</td>
+          <td>eventi / gruppi</td>
+          <td>50M</td>
+          <td style="color:var(--accent4);">UX datata, no narrativa</td>
+        </tr>
+        <tr>
+          <td>Strava</td>
+          <td>sport + community</td>
+          <td>120M</td>
+          <td style="color:var(--accent3);">solo sport, verticale chiuso</td>
+        </tr>
+        <tr>
+          <td>BeReal</td>
+          <td>autenticità / foto</td>
+          <td>40M</td>
+          <td style="color:var(--accent4);">in calo, no IRL</td>
+        </tr>
+        <tr>
+          <td>Timeleft</td>
+          <td>cene tra sconosciuti</td>
+          <td>~500K</td>
+          <td style="color:var(--accent2);">nicchia troppo stretta</td>
+        </tr>
+        <tr>
+          <td>Locket</td>
+          <td>widget foto amici</td>
+          <td>30M</td>
+          <td style="color:var(--accent3);">digitale, no uscite reali</td>
+        </tr>
+        <tr>
+          <td>FB Events</td>
+          <td>eventi generici</td>
+          <td>miliardi</td>
+          <td style="color:var(--accent4);">rumore, brand tossico</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fade-in" style="margin-top:1rem;">
+    <div style="font-family:var(--font-head);font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1rem;">Come superarli</div>
+
+    <div class="card">
+      <div style="font-size:11px;color:var(--text3);font-family:var(--font-head);font-weight:600;letter-spacing:.06em;margin-bottom:6px;">VS MEETUP</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;">Design mobile-first radicale + onboarding in meno di 60 secondi. Meetup richiede setup lungo e ha un look da 2012. La tua UX deve fare "wow" al primo avvio.</div>
+    </div>
+    <div class="card">
+      <div style="font-size:11px;color:var(--text3);font-family:var(--font-head);font-weight:600;letter-spacing:.06em;margin-bottom:6px;">VS STRAVA</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;">Supera con l'ampiezza: sei orizzontale dove loro sono verticali. Running sì, ma anche cene, mostre, boardgame. Cattura gli utenti Strava con hook sport + sorprendili con il resto.</div>
+    </div>
+    <div class="card">
+      <div style="font-size:11px;color:var(--text3);font-family:var(--font-head);font-weight:600;letter-spacing:.06em;margin-bottom:6px;">VS BEREAL / LOCKET</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;">La tua value prop è la negazione del loro prodotto: non "condividi cosa stai facendo online", ma "esci e fallo davvero". Usalo come messaggio di posizionamento esplicito.</div>
+    </div>
+    <div class="card">
+      <div style="font-size:11px;color:var(--text3);font-family:var(--font-head);font-weight:600;letter-spacing:.06em;margin-bottom:6px;">VS FACEBOOK EVENTS</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;">Facebook Events ha tutto ma è rumore. Tu hai una selezione curata, un'estetica, una community con identità. Essere "piccolo ma intenzionale" è il vantaggio — usalo.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MONETIZZAZIONE -->
+<section id="monetizzazione">
+  <div class="sec-head fade-in">
+    <div class="sec-tag">05 — Revenue</div>
+    <h2 class="sec-title">Come<br><span>guadagnare</span></h2>
+  </div>
+
+  <div class="mono-grid fade-in">
+
+    <div class="mono-card" style="border-color:rgba(200,240,96,.25);">
+      <div class="mono-icon" style="background:rgba(200,240,96,.1);">💰</div>
+      <div style="flex:1;">
+        <span class="pill" style="background:rgba(200,240,96,.12);color:var(--accent);font-size:9px;">Consigliato · Fase 1</span>
+        <div class="mono-name">Commissione eventi</div>
+        <div class="mono-desc">5–15% su ogni biglietto venduto. Allineato agli interessi: guadagni solo se gli utenti escono davvero.</div>
+        <div class="mono-bar"><div class="mono-bar-fill" style="--target-width:90%;background:var(--accent);"></div></div>
+        <div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:var(--font-head);">Potenziale: 90/100</div>
+      </div>
+    </div>
+
+    <div class="mono-card" style="border-color:rgba(200,240,96,.2);">
+      <div class="mono-icon" style="background:rgba(200,240,96,.08);">🔑</div>
+      <div style="flex:1;">
+        <span class="pill" style="background:rgba(200,240,96,.12);color:var(--accent);font-size:9px;">Consigliato · Fase 2</span>
+        <div class="mono-name">Abbonamento premium</div>
+        <div class="mono-desc">€5–9/mese per accesso anticipato agli eventi, filtri avanzati, match prioritario. Revenue ricorrente stabile.</div>
+        <div class="mono-bar"><div class="mono-bar-fill" style="--target-width:78%;background:var(--accent);"></div></div>
+        <div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:var(--font-head);">Potenziale: 78/100</div>
+      </div>
+    </div>
+
+    <div class="mono-card">
+      <div class="mono-icon" style="background:rgba(96,168,240,.1);">🤝</div>
+      <div style="flex:1;">
+        <span class="pill" style="background:rgba(96,168,240,.12);color:var(--blue);font-size:9px;">Da esplorare · Fase 2–3</span>
+        <div class="mono-name">Brand partnership IRL</div>
+        <div class="mono-desc">Brand sponsorizzano eventi fisici — non banner: esperienze. Es. Aperol sponsorizza un aperitivo networking.</div>
+        <div class="mono-bar"><div class="mono-bar-fill" style="--target-width:70%;background:var(--blue);"></div></div>
+        <div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:var(--font-head);">Potenziale: 70/100</div>
+      </div>
+    </div>
+
+    <div class="mono-card">
+      <div class="mono-icon" style="background:rgba(168,128,240,.1);">📊</div>
+      <div style="flex:1;">
+        <span class="pill" style="background:rgba(168,128,240,.12);color:var(--purple);font-size:9px;">Solo fase 3+</span>
+        <div class="mono-name">Tools per organizzatori</div>
+        <div class="mono-desc">Dashboard analytics, promozione eventi, gestione lista. SaaS B2B per chi organizza regolarmente.</div>
+        <div class="mono-bar"><div class="mono-bar-fill" style="--target-width:58%;background:var(--purple);"></div></div>
+        <div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:var(--font-head);">Potenziale: 58/100</div>
+      </div>
+    </div>
+
+    <div class="mono-card">
+      <div class="mono-icon" style="background:rgba(96,168,240,.08);">🎮</div>
+      <div style="flex:1;">
+        <span class="pill" style="background:rgba(96,168,240,.12);color:var(--blue);font-size:9px;">Innovativo · Fase 3</span>
+        <div class="mono-name">Detox reward loop</div>
+        <div class="mono-desc">Meno screen time = crediti per eventi. Integrazione Screen Time API. Alta differenziazione, alta complessità.</div>
+        <div class="mono-bar"><div class="mono-bar-fill" style="--target-width:65%;background:var(--blue);"></div></div>
+        <div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:var(--font-head);">Potenziale: 65/100</div>
+      </div>
+    </div>
+
+    <div class="mono-card" style="opacity:.6;">
+      <div class="mono-icon" style="background:rgba(240,96,96,.1);">🚫</div>
+      <div style="flex:1;">
+        <span class="pill" style="background:rgba(240,96,96,.12);color:var(--accent4);font-size:9px;">Da evitare</span>
+        <div class="mono-name">Pubblicità display</div>
+        <div class="mono-desc">Banner e ads tradizionali. Distrugge la narrativa "siamo l'alternativa ai social tossici". Mina la fiducia dei tuoi utenti più fedeli.</div>
+        <div class="mono-bar"><div class="mono-bar-fill" style="--target-width:15%;background:var(--accent4);"></div></div>
+        <div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:var(--font-head);">Potenziale: 15/100 — incompatibile</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- KPI -->
+<section id="kpi">
+  <div class="sec-head fade-in">
+    <div class="sec-tag">06 — Metriche</div>
+    <h2 class="sec-title">KPI da<br><span>monitorare</span></h2>
+  </div>
+
+  <div class="kpi-grid fade-in">
+    <div class="kpi-card">
+      <div class="kpi-val">&gt;40%</div>
+      <div class="kpi-label">Retention a 30 giorni</div>
+      <div class="kpi-sub">Soglia minima vitale per sopravvivere</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val">&gt;1.5</div>
+      <div class="kpi-label">Eventi / utente / mese</div>
+      <div class="kpi-sub">Segnale di habit reale e non curiosità</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val">&gt;60</div>
+      <div class="kpi-label">NPS post-evento</div>
+      <div class="kpi-sub">Soglia del referral spontaneo</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val">&lt;0.3</div>
+      <div class="kpi-label">CAC / LTV ratio</div>
+      <div class="kpi-sub">Target per scalabilità sana</div>
+    </div>
+  </div>
+
+  <div class="card fade-in" style="margin-top:1rem;">
+    <div style="font-family:var(--font-head);font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1rem;">Rischi principali</div>
+
+    <div class="risk-item">
+      <div class="risk-dot" style="background:var(--accent4);"></div>
+      <div>
+        <div class="risk-title">Retention difficile senza habit loop</div>
+        <div class="risk-fix">Soluzione: notifiche anticipatorie (non di richiamo), streak, check-in fisici agli eventi.</div>
+      </div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-dot" style="background:var(--accent4);"></div>
+      <div>
+        <div class="risk-title">Cold start — network effects negativi</div>
+        <div class="risk-fix">Soluzione: non lanciare l'app pubblica finché non hai 500+ utenti attivi nella città target.</div>
+      </div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-dot" style="background:var(--accent3);"></div>
+      <div>
+        <div class="risk-title">Dipendenza dalla densità geografica</div>
+        <div class="risk-fix">Soluzione: concentrarsi su una sola città finché non è satura prima di espandersi.</div>
+      </div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-dot" style="background:var(--accent3);"></div>
+      <div>
+        <div class="risk-title">Competizione indiretta da Meta / Google</div>
+        <div class="risk-fix">Soluzione: il moat è la community con identità — non la feature list. Un grande player non può copiarti.</div>
+      </div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-dot" style="background:var(--text3);"></div>
+      <div>
+        <div class="risk-title">Stagionalità delle attività</div>
+        <div class="risk-fix">Soluzione: pianificare eventi indoor per i mesi invernali e diversificare le tipologie di attività.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GLOSSARIO -->
+<section id="glossario">
+  <div class="sec-head fade-in">
+    <div class="sec-tag">07 — Glossario</div>
+    <h2 class="sec-title">Tutti i<br><span>termini</span></h2>
+  </div>
+
+  <div class="fade-in">
+    <input type="text" class="glo-search" id="gloSearch" placeholder="Cerca un termine..." oninput="filterGlo()">
+    <div class="cat-row">
+      <button class="cat-btn on" onclick="setCat('all',this)">Tutti</button>
+      <button class="cat-btn" onclick="setCat('growth',this)">Crescita</button>
+      <button class="cat-btn" onclick="setCat('money',this)">Monetizzazione</button>
+      <button class="cat-btn" onclick="setCat('product',this)">Prodotto</button>
+      <button class="cat-btn" onclick="setCat('market',this)">Mercato</button>
+      <button class="cat-btn" onclick="setCat('metrics',this)">Metriche</button>
+    </div>
+    <div class="glo-count" id="gloCount"></div>
+    <div id="gloGrid"></div>
+    <div class="glo-empty" id="gloEmpty">Nessun termine trovato.</div>
+  </div>
+</section>
+
+<footer>
+  Report generato con Claude · Analisi mercato 2025<br>
+  App IRL & Disconnessione Social — uso personale e riservato
+</footer>
+
+</main>
+
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// GLOSSARY DATA
+const terms = [
+  { en:"Seed community", it:"Comunità seme", cat:"growth", def:"Il gruppo iniziale di utenti che costruisci a mano, uno per uno, prima ancora di lanciare il prodotto al pubblico. Sono i tuoi primi sostenitori, tester e ambassador.", ex:"Vai fisicamente nelle università e palestre della tua città e convinci 100 persone a provare l'app prima del lancio ufficiale." },
+  { en:"Cold start problem", it:"Problema dell'avvio a freddo", cat:"growth", def:"Il paradosso per cui un'app che connette persone o offre contenuti è inutile finché non ha già utenti. Nessuno usa un'app vuota, ma per riempirla servono utenti.", ex:"Un'app di eventi senza eventi non serve a nulla. Devi 'simulare' la domanda iniziale organizzando tu stesso i primi eventi." },
+  { en:"Growth hacking", it:"Crescita aggressiva / scorciatoie di crescita", cat:"growth", def:"Tecniche creative e spesso a basso costo per far crescere rapidamente il numero di utenti, sfruttando meccanismi virali o loop automatici.", ex:"'Invita un amico e ottieni l'accesso all'evento gratis' è un classico growth hack." },
+  { en:"Referral loop", it:"Ciclo di referral / passaparola incentivato", cat:"growth", def:"Un meccanismo per cui ogni nuovo utente porta altri utenti, creando una catena di inviti. Se ogni utente porta in media più di 1 persona, la crescita diventa esponenziale.", ex:"Dropbox dava spazio extra a chi invitava amici. Tu potresti dare un evento gratuito." },
+  { en:"Viral coefficient", it:"Coefficiente virale", cat:"growth", def:"Quanti nuovi utenti porta in media ogni utente esistente. Se è maggiore di 1, la crescita è 'virale' e si autoalimenta senza spendere in pubblicità.", ex:"Se ogni 10 utenti ne portano 12, il tuo viral coefficient è 1.2 — stai crescendo senza pagare." },
+  { en:"Traction", it:"Trazione / prove che funziona", cat:"growth", def:"Evidenza concreta e misurabile che il tuo prodotto sta crescendo e che gli utenti lo trovano utile. È quello che mostri agli investitori per dimostrare che non sei solo un'idea.", ex:"'800 utenti attivi settimanali, 3 eventi al giorno, NPS 72' è traction. '5.000 download' non è detto che lo sia." },
+  { en:"Playbook", it:"Manuale operativo / ricetta replicabile", cat:"growth", def:"Un insieme documentato di strategie, processi e tattiche che hanno funzionato e che puoi replicare in nuovi contesti senza reinventare tutto da capo.", ex:"Come hai acquisito i primi 500 utenti a Milano? Quel processo diventa il playbook per Torino e Bologna." },
+  { en:"City manager", it:"Responsabile locale per una città", cat:"growth", def:"Una persona sul territorio che gestisce la community, gli organizzatori di eventi e la crescita dell'app in una singola città. Fondamentale per scalare città per città senza perdere qualità.", ex:"Quando apri a Torino, assumi qualcuno di Torino che conosce il tessuto locale e gestisce i primi eventi." },
+  { en:"Go-to-market (GTM)", it:"Strategia di lancio sul mercato", cat:"market", def:"Il piano completo che definisce come porti il tuo prodotto agli utenti: quale target raggiungere, con quale messaggio, attraverso quali canali e in quale sequenza.", ex:"Il tuo GTM è 'lancio in una città italiana, target 20-35 anni, canali offline prima, poi social organico'." },
+  { en:"Moat", it:"Fossato competitivo / vantaggio difendibile", cat:"market", def:"Qualcosa che protegge il tuo business dalla concorrenza e che è difficile da copiare. Può essere tecnologia, brand, community, effetti di rete, dati, o contratti esclusivi.", ex:"Se costruisci una community con identità forte, un competitor non può semplicemente copiarti — gli utenti non si spostano." },
+  { en:"Positioning", it:"Posizionamento", cat:"market", def:"Come il tuo prodotto viene percepito nella mente degli utenti rispetto ai competitor. Non è cosa fai, ma come vieni ricordato e per quale problema sei la soluzione ovvia.", ex:"Il tuo posizionamento potrebbe essere 'l'app per chi vuole vivere davvero, non scorrere uno schermo'." },
+  { en:"Scalabilità", it:"Capacità di crescere senza rompere", cat:"market", def:"La capacità del business di crescere molto — in utenti, città, o revenue — senza che i costi crescano nella stessa proporzione. Un business scalabile diventa più efficiente man mano che cresce.", ex:"Aggiungere una seconda città costa molto meno della prima se hai già il playbook, il brand e la tecnologia pronti." },
+  { en:"B2B / B2C", it:"Business-to-business / Business-to-consumer", cat:"market", def:"B2C significa che vendi direttamente alle persone (gli utenti dell'app). B2B significa che vendi a organizzazioni o aziende (es. gli organizzatori di eventi che pagano per tools avanzati).", ex:"La tua app è B2C verso gli utenti finali, ma potrebbe avere un ramo B2B verso le aziende che vogliono organizzare team building." },
+  { en:"Vertical / Orizzontale", it:"Verticale (nicchia) / Orizzontale (ampio)", cat:"market", def:"Un prodotto verticale serve un segmento molto specifico (es. solo running). Uno orizzontale copre più categorie. Verticale = più facile da posizionare. Orizzontale = mercato più grande.", ex:"Strava è verticale (solo sport). Il tuo progetto è orizzontale (eventi di ogni tipo). Entrambi hanno vantaggi diversi." },
+  { en:"Pitch deck", it:"Presentazione agli investitori", cat:"market", def:"Una presentazione di 10-15 slide che racconta il tuo business a potenziali investitori: il problema, la soluzione, il mercato, il team, i numeri, e quanto stai raccogliendo.", ex:"Prima di incontrare un VC prepari un pitch deck con i dati di traction, il modello di revenue e la proiezione di crescita." },
+  { en:"Product-market fit (PMF)", it:"Adattamento prodotto-mercato", cat:"product", def:"Il momento in cui il tuo prodotto soddisfa un bisogno reale del mercato in modo abbastanza forte da generare crescita organica. Prima del PMF stai cercando; dopo, stai scalando.", ex:"Lo capisci quando gli utenti ti dicono che sarebbero 'molto delusi' se l'app chiudesse, e quando la retention cresce da sola." },
+  { en:"MVP", it:"Prodotto minimo funzionante", cat:"product", def:"La versione più semplice possibile del prodotto che puoi mettere in mano a utenti reali per testare se l'idea funziona. Non deve essere perfetta — deve essere abbastanza per imparare.", ex:"Il tuo MVP potrebbe essere un gruppo WhatsApp + un Google Form per iscriversi agli eventi, senza nessuna app vera." },
+  { en:"Onboarding", it:"Processo di primo utilizzo", cat:"product", def:"L'esperienza dell'utente dalla prima apertura dell'app fino al momento in cui capisce il valore del prodotto e completa la prima azione significativa.", ex:"Un onboarding ben fatto porta l'utente a iscriversi al primo evento entro 60 secondi dall'apertura dell'app." },
+  { en:"Habit loop", it:"Ciclo dell'abitudine", cat:"product", def:"Il meccanismo psicologico che trasforma un comportamento in un'abitudine: segnale → routine → ricompensa. Le app di successo si inseriscono in questo ciclo.", ex:"La notifica 'evento vicino a te questo weekend' è il segnale che innesca l'abitudine di uscire usando la tua app." },
+  { en:"UX (User Experience)", it:"Esperienza utente", cat:"product", def:"Come si sente e si comporta un utente mentre usa il tuo prodotto. Include facilità d'uso, soddisfazione, velocità, e quanto è intuitivo ogni passaggio.", ex:"Meetup ha una UX datata — richiede troppi passaggi per iscriversi a un evento. La tua deve essere più fluida." },
+  { en:"Modello freemium", it:"Gratis + a pagamento", cat:"money", def:"Il prodotto base è gratuito per tutti, ma funzionalità avanzate o accesso premium sono a pagamento. L'obiettivo è convertire una parte degli utenti gratuiti in paganti.", ex:"L'app è gratuita, ma chi paga €7/mese vede gli eventi in anteprima e ha priorità nelle liste d'attesa." },
+  { en:"Modello commissioni", it:"Percentuale sulle transazioni", cat:"money", def:"Guadagni una percentuale su ogni transazione che avviene sulla tua piattaforma. Non fai pagare l'accesso, ma prendi una fetta di ogni biglietto o prenotazione venduta.", ex:"Un organizzatore vende 50 biglietti a €10 — tu prendi il 12%, cioè €60, senza fare nulla di più." },
+  { en:"MRR / ARR", it:"Entrate mensili / annuali ricorrenti", cat:"money", def:"Quanto guadagni in modo prevedibile ogni mese (MRR) o ogni anno (ARR) dagli abbonamenti. È la forma di revenue più apprezzata dagli investitori perché è stabile e previsibile.", ex:"500 utenti premium a €7/mese = €3.500 MRR — sai già quanto incasserai il mese prossimo." },
+  { en:"VC (Venture Capital)", it:"Capitale di rischio / investitori in startup", cat:"money", def:"Fondi di investimento che finanziano startup ad alto potenziale di crescita in cambio di una quota azionaria. Scommettono su pochissime aziende che potrebbero valere moltissimo.", ex:"Se un VC ti offre €500K per il 15% dell'azienda, sta dicendo che la valuta €3.3M oggi." },
+  { en:"Seed round", it:"Primo round di finanziamento", cat:"money", def:"Il primo finanziamento significativo che una startup raccoglie da investitori esterni, di solito per costruire il prodotto e acquisire i primi utenti.", ex:"Raccogli €200K da angel investor per pagare 6 mesi di sviluppo e il lancio in 2 città." },
+  { en:"Angel investor", it:"Investitore privato early-stage", cat:"money", def:"Una persona fisica (spesso un ex imprenditore) che investe denaro proprio in startup nelle primissime fasi. Di solito investe importi tra €10K e €200K.", ex:"Un imprenditore che ha già venduto una startup ti dà €50K in cambio del 5% dell'azienda." },
+  { en:"CAC", it:"Costo di acquisizione utente", cat:"metrics", def:"Quanto spendi in media per acquisire un nuovo utente o cliente, contando marketing, ads, eventi, vendite. Da tenere il più basso possibile.", ex:"Se spendi €1.000 in ads e acquisisci 100 utenti, il tuo CAC è €10 per utente." },
+  { en:"LTV (Lifetime Value)", it:"Valore totale di un utente nel tempo", cat:"metrics", def:"Quanto guadagna la tua azienda da un singolo utente durante tutto il periodo in cui usa il prodotto. Deve essere molto maggiore del CAC per avere un business sostenibile.", ex:"Se un utente paga €7/mese per 18 mesi, il suo LTV è €126. Se il CAC è €10, il business funziona." },
+  { en:"Retention", it:"Tasso di fidelizzazione", cat:"metrics", def:"La percentuale di utenti che continuano a usare il prodotto dopo un certo periodo. La retention a 30 giorni dice quanti utenti tornano dopo il primo mese.", ex:"Se 100 persone scaricano l'app e dopo 30 giorni 45 la usano ancora, la tua retention è 45%." },
+  { en:"Churn", it:"Tasso di abbandono", cat:"metrics", def:"La percentuale di utenti o clienti paganti che smettono di usare il prodotto in un dato periodo. L'opposto della retention.", ex:"Se ogni mese il 10% degli abbonati disdice, hai un churn del 10% — devi acquisire continuamente nuovi utenti solo per restare fermo." },
+  { en:"NPS (Net Promoter Score)", it:"Indice di soddisfazione e passaparola", cat:"metrics", def:"Una metrica che misura quanto gli utenti raccomanderebbero il tuo prodotto ad altri, su scala 0-100. Sopra 60 è eccellente e indica forte propensione al passaparola.", ex:"Chiedi agli utenti 'quanto consiglieresti l'app a un amico?' — se la maggioranza risponde 9-10, il tuo NPS è alto." },
+  { en:"KPI", it:"Indicatori chiave di performance", cat:"metrics", def:"I numeri specifici che monitori regolarmente per capire se il business sta andando nella direzione giusta. Ogni fase ha i suoi KPI prioritari.", ex:"Nella fase iniziale i tuoi KPI sono retention, NPS, e numero di eventi per utente. Non le download totali." },
+  { en:"CAGR", it:"Tasso di crescita annuo composto", cat:"metrics", def:"La percentuale di crescita media annua di un mercato o di una metrica nel tempo, calcolata come se crescesse a ritmo costante ogni anno.", ex:"Un mercato da $10B che cresce al 18% CAGR vale $22B dopo 5 anni." },
+];
+
+const catColors = {
+  growth: { bg:'rgba(200,240,96,.1)', color:'var(--accent)' },
+  money:  { bg:'rgba(139,224,192,.1)', color:'var(--accent2)' },
+  product:{ bg:'rgba(168,128,240,.1)', color:'var(--purple)' },
+  market: { bg:'rgba(240,160,96,.1)',  color:'var(--accent3)' },
+  metrics:{ bg:'rgba(96,168,240,.1)',  color:'var(--blue)' },
+};
+const catLabels = { growth:'Crescita', money:'Monetizzazione', product:'Prodotto', market:'Mercato', metrics:'Metriche' };
+
+let currentCat = 'all';
+let currentSearch = '';
+
+function renderGlo() {
+  const q = currentSearch.toLowerCase();
+  const filtered = terms.filter(t => {
+    const mc = currentCat === 'all' || t.cat === currentCat;
+    const mq = !q || t.en.toLowerCase().includes(q) || t.it.toLowerCase().includes(q) || t.def.toLowerCase().includes(q);
+    return mc && mq;
+  });
+  const grid = document.getElementById('gloGrid');
+  const empty = document.getElementById('gloEmpty');
+  const count = document.getElementById('gloCount');
+  count.textContent = filtered.length + ' termini';
+  if (!filtered.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  const cc = catColors;
+  grid.innerHTML = filtered.map((t,i) => {
+    const c = cc[t.cat];
+    return `<div class="term-card" id="gt${i}" onclick="toggleTerm('gt${i}')">
+      <div class="term-top">
+        <div>
+          <span style="display:inline-block;font-size:9px;font-weight:700;font-family:var(--font-head);letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:99px;background:${c.bg};color:${c.color};margin-bottom:4px;">${catLabels[t.cat]}</span>
+          <div class="term-en">${t.en}</div>
+          <div class="term-it">${t.it}</div>
+        </div>
+        <div class="term-arrow">▾</div>
+      </div>
+      <div class="term-body">
+        <p class="term-def">${t.def}</p>
+        <p class="term-ex">Esempio: ${t.ex}</p>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleTerm(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function setCat(cat, btn) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  renderGlo();
+}
+
+function filterGlo() {
+  currentSearch = document.getElementById('gloSearch').value;
+  renderGlo();
+}
+
+renderGlo();
+
+// SCROLL PROGRESS
+window.addEventListener('scroll', () => {
+  const st = window.scrollY;
+  const dh = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('scrollProgress').style.width = (st / dh * 100) + '%';
+  document.getElementById('btt').classList.toggle('visible', st > 300);
+});
+
+// ACTIVE NAV
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (active) {
+        active.classList.add('active');
+        active.scrollIntoView({ behavior:'smooth', block:'nearest', inline:'center' });
+      }
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// FADE IN
+const fadeObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); fadeObs.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => fadeObs.observe(el));
+
+// BAR ANIMATIONS
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.bar-fill, .opp-fill, .mono-bar-fill').forEach(b => b.classList.add('animated'));
+      barObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.card, .mono-card').forEach(el => barObs.observe(el));
+</script>
+
+</body>
+</html>
